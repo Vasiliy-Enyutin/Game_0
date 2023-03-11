@@ -1,3 +1,4 @@
+#nullable enable
 using JetBrains.Annotations;
 
 namespace _Project.Scripts.PlayerLogic
@@ -12,22 +13,21 @@ namespace _Project.Scripts.PlayerLogic
         private Camera _playerCamera;
 
         private const float INTERACT_DISTANT = 2f;
-        private IInteractable interactable;
+        private IInteractable? _interactable;
 
         private void Update()
         {
             Debug.DrawRay(_playerCamera.transform.position, _playerCamera.transform.forward * INTERACT_DISTANT, Color.yellow);
 
-            interactable = TryDetectInteractableObject();
-            if (interactable != null)
+            _interactable = TryDetectInteractableObject();
+            if (_interactable != null)
             {
                 Debug.Log("Here is interactable");
             }
             Debug.Log("NO interactable");
         }
 
-        [CanBeNull] 
-        private IInteractable TryDetectInteractableObject()
+        private IInteractable? TryDetectInteractableObject()
         {
             if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out RaycastHit hit, INTERACT_DISTANT, _objectsToHit))
             {
