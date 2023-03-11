@@ -1,4 +1,4 @@
-namespace _Project.Scripts.PlayerLogic
+namespace _Project.Scripts.Interfaces
 {
     public interface IInteractable
     {

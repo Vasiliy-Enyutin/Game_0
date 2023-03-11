@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using _Project.Scripts.PlayerLogic;
 using UnityEngine;
 using System.Linq;
+using _Project.Scripts.Interfaces;
 
 namespace _Project.Scripts.Environment
 {

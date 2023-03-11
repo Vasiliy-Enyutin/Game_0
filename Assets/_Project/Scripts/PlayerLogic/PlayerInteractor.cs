@@ -1,5 +1,4 @@
-#nullable enable
-using JetBrains.Annotations;
+using _Project.Scripts.Interfaces;
 
 namespace _Project.Scripts.PlayerLogic
 {
