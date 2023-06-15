@@ -14,6 +14,7 @@ namespace _Project.Scripts
 		{
 			T instance = _diContainer.InstantiatePrefab(prefab).GetComponent<T>();
 			instance.transform.position = position;
+			Debug.Log(position);
 			return instance;
 		}
 		

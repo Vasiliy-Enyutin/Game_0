@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimalType: 1
   AnimalPrefab: {fileID: -8343818316554978874, guid: 3e57e4480e78d7b4abb20efd34707a02, type: 3}
-  WalkRadius: 7
+  WalkRadius: 3
   PositionsChangeDelay: 3
-  AnimalsNumber: 5
+  AnimalsNumber: 1

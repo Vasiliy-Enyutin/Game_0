@@ -35,7 +35,7 @@ namespace _Project.Scripts.AI
         {
             for (int i = 0; i < animalsNumber; i++)
             {
-                _assetProviderService.CreateAsset<Animal>(_animalPrefab, transform).Init(_walkRadius, _positionsChangeDelay);
+                _assetProviderService.CreateAsset<Animal>(_animalPrefab, transform).Init(transform.position, _walkRadius, _positionsChangeDelay);
             }
         }
 

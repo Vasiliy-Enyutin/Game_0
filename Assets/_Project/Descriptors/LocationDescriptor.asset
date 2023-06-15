@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd5b1b58a6e426ba021a89641bcf6c2, type: 3}
   m_Name: LocationDescriptor
   m_EditorClassIdentifier: 
-  InitialPlayerPositionPoint: {x: 0, y: 0, z: 0}
+  InitialPlayerPositionPoint: {x: 3, y: 0, z: 3}

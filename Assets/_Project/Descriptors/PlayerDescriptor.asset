@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerDescriptor
   m_EditorClassIdentifier: 
   Prefab: {fileID: 7525693447543229363, guid: bd4173993958f14479601119aa1e708e, type: 3}
-  MoveSpeed: 3
+  MoveSpeed: 6
   BaseDamageToResources: 20
