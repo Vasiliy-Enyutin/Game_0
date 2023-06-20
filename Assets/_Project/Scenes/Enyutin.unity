@@ -418,10 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f8de180db94f94cb87a7dae7a0e267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellPrefab: {fileID: 5319102271319625137, guid: ddd82b38dd1d4c848a6e7013ac87c2e7, type: 3}
-  _cellSize: {x: 5, y: 0, z: 5}
-  _labyrinthWidth: 20
-  _labyrinthHeight: 20
 --- !u!1001 &1530427406
 PrefabInstance:
   m_ObjectHideFlags: 0

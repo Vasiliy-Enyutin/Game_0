@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LabyrinthDescriptor
   m_EditorClassIdentifier: 
   CellPrefab: {fileID: 5319102271319625137, guid: ddd82b38dd1d4c848a6e7013ac87c2e7, type: 3}
-  CellSize: {x: 1, y: 1, z: 0}
+  CellSize: {x: 5, y: 0, z: 5}
   LabyrinthWidth: 10
   LabyrinthHeight: 10

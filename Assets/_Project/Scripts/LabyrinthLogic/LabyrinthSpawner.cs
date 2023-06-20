@@ -34,8 +34,7 @@ namespace _Project.Scripts.LabyrinthLogic
             {
                 for (int y = 0; y < _labyrinth.cells.GetLength(1); y++)
                 {
-                    Cell c = Instantiate(_cell, new Vector3(x * _cellSize.x, y * _cellSize.y, y * _cellSize.z), Quaternion.identity);
-                    //Cell c = _assetProviderService.CreateAsset<Cell>(_cell, new Vector3(x * _cellSize.x, y * _cellSize.y, y * _cellSize.z));
+                    Cell c = _assetProviderService.CreateAsset<Cell>(_cell, new Vector3(x * _cellSize.x, y * _cellSize.y, y * _cellSize.z));
 
                     c.transform.SetParent(transform);
                     c.WallLeft.SetActive(_labyrinth.cells[x, y].WallLeft);
