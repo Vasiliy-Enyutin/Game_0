@@ -23,6 +23,9 @@ namespace _Project.Scripts.Factories
 		[Inject]
 		private EnemyDescriptor _enemyDescriptor;
 
+		// Из-за своеобразного спавна лабиринта пол ячеек может выходить за пределы лабиринта
+		private const int CELLS_COORDS_OUTSIDE_LABYRINTH = 45;
+
 		private GameObject _player;
 		private List<GameObject> _enemies = new();
 		
@@ -33,7 +36,10 @@ namespace _Project.Scripts.Factories
 
 		public void CreateEnemies(List<Vector3> cellsPositions)
 		{
-			List<Vector3> spawnPositions = cellsPositions.OrderBy(x => Guid.NewGuid()).Take(_enemyDescriptor.EnemiesNumber).ToList();
+			List<Vector3> spawnPositions = cellsPositions
+				.Where(x => Math.Abs(x.x - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon && Math.Abs(x.z - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon)
+				.OrderBy(x => Guid.NewGuid()).Take(_enemyDescriptor.EnemiesNumber).ToList();
+
 			
 			foreach (Vector3 spawnPosition in spawnPositions)
 			{

@@ -59,11 +59,7 @@ namespace _Project.Scripts
 
 		private void SpawnEnemies()
 		{
-			List<Vector3> cellsPositions = FindObjectsOfType<Cell>().Select(cell => cell.Floor.transform.position).ToList();
-			foreach (var VARIABLE in cellsPositions)
-			{
-				Debug.Log(VARIABLE);
-			}
+			List<Vector3> cellsPositions = FindObjectsOfType<Cell>().Select(cell => cell.transform.position).ToList();
 			_gameFactoryService.CreateEnemies(cellsPositions);
 		}
 	}
