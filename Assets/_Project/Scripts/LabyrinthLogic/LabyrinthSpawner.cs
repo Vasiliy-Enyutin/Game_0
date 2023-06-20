@@ -1,27 +1,45 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.LabyrinthLogic
 {
     public class LabyrinthSpawner : MonoBehaviour
     {
-        public Cell CellPrefab;
-        public Vector3 CellSize = new(1,1,0);
-        public Labyrinth maze;
+        [Inject]
+        private AssetProviderService _assetProviderService = null!;
+        
+        private Cell _cell;
+        private Vector3 _cellSize;
+        private int _labyrinthWidth;
+        private int _labyrinthHeight;
+        
+        private Labyrinth _labyrinth;
 
-        private void Start()
+        public void Init(Cell cell, Vector3 cellSize, int labyrinthWidth, int labyrinthHeight)
+        {
+            _cell = cell;
+            _cellSize = cellSize;
+            _labyrinthWidth = labyrinthWidth;
+            _labyrinthHeight = labyrinthHeight;
+            
+            GenerateLabyrinth();
+        }
+        
+        private void GenerateLabyrinth()
         {
             LabyrinthGenerator generator = new();
-            maze = generator.GenerateMaze();
+            _labyrinth = generator.GenerateMaze(_labyrinthWidth, _labyrinthHeight);
 
-            for (int x = 0; x < maze.cells.GetLength(0); x++)
+            for (int x = 0; x < _labyrinth.cells.GetLength(0); x++)
             {
-                for (int y = 0; y < maze.cells.GetLength(1); y++)
+                for (int y = 0; y < _labyrinth.cells.GetLength(1); y++)
                 {
-                    Cell c = Instantiate(CellPrefab, new Vector3(x * CellSize.x, y * CellSize.y, y * CellSize.z), Quaternion.identity);
+                    Cell c = Instantiate(_cell, new Vector3(x * _cellSize.x, y * _cellSize.y, y * _cellSize.z), Quaternion.identity);
+                    //Cell c = _assetProviderService.CreateAsset<Cell>(_cell, new Vector3(x * _cellSize.x, y * _cellSize.y, y * _cellSize.z));
 
                     c.transform.SetParent(transform);
-                    c.WallLeft.SetActive(maze.cells[x, y].WallLeft);
-                    c.WallBottom.SetActive(maze.cells[x, y].WallBottom);
+                    c.WallLeft.SetActive(_labyrinth.cells[x, y].WallLeft);
+                    c.WallBottom.SetActive(_labyrinth.cells[x, y].WallBottom);
                 }
             }
         }

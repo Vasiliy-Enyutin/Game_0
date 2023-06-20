@@ -19,6 +19,8 @@ namespace _Project.Scripts.Installers
 		private AnimalAreaDescriptorCollection animalAreaDescriptorCollection = null!;
 		[SerializeField]
 		private ItemDescriptorCollection _itemDescriptorCollection = null!;
+		[SerializeField]
+		private LabyrinthDescriptor _labyrinthDescriptor = null!;
 		
 		public override void InstallBindings()
 		{
@@ -27,6 +29,7 @@ namespace _Project.Scripts.Installers
 			Container.BindInstance(_resourceDescriptorCollection).AsSingle();
 			Container.BindInstance(animalAreaDescriptorCollection).AsSingle();
 			Container.BindInstance(_itemDescriptorCollection).AsSingle();
+			Container.BindInstance(_labyrinthDescriptor).AsSingle();
 		}
 	}
 }
