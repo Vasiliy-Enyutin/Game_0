@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.AI;
 using _Project.Scripts.Descriptors;
 using _Project.Scripts.Descriptors.Animals;
@@ -14,8 +16,6 @@ namespace _Project.Scripts
 	{
 		[Inject]
 		private GameFactoryService _gameFactoryService = null!;
-		[Inject]
-		private LocationDescriptor _locationDescriptor = null!;
 		[Inject] 
 		private ResourceDescriptorCollection _resourceDescriptorCollection = null!;
 		[Inject]
@@ -23,12 +23,14 @@ namespace _Project.Scripts
 		[Inject]
 		private LabyrinthDescriptor _labyrinthDescriptor = null!;
 
+
 		private void Awake()
 		{
-			_gameFactoryService.CreatePlayer(_locationDescriptor.InitialPlayerPositionPoint);
+			_gameFactoryService.CreatePlayer();
 			InitResources();
 			InitAnimalAreas();
 			InitLabyrinth();
+			SpawnEnemies();
 		}
 
 		private void InitResources()
@@ -53,6 +55,16 @@ namespace _Project.Scripts
 		{
 			FindObjectOfType<LabyrinthSpawner>().Init(_labyrinthDescriptor.CellPrefab, _labyrinthDescriptor.CellSize,
 				_labyrinthDescriptor.LabyrinthWidth, _labyrinthDescriptor.LabyrinthHeight);
+		}
+
+		private void SpawnEnemies()
+		{
+			List<Vector3> cellsPositions = FindObjectsOfType<Cell>().Select(cell => cell.Floor.transform.position).ToList();
+			foreach (var VARIABLE in cellsPositions)
+			{
+				Debug.Log(VARIABLE);
+			}
+			_gameFactoryService.CreateEnemies(cellsPositions);
 		}
 	}
 }
