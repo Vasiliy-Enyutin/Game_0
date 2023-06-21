@@ -6,7 +6,7 @@ namespace _Project.Scripts.EnemyLogic
     [RequireComponent(typeof(NavMeshAgent))]
     public class Enemy : MonoBehaviour
     {
-        private GameObject _player;
+        private GameObject? _player;
         private float _pursuitDistance;
 
         private NavMeshAgent _agent;
