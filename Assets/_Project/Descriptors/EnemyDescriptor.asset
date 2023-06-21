@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: {fileID: -2803342004414049443, guid: 153da5451e4c3b54bbdbc67260faa546, type: 3}
   EnemiesNumber: 5
+  MoveSpeed: 5
+  PursuitDistance: 8

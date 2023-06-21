@@ -37,7 +37,8 @@ namespace _Project.Scripts.Factories
 		public void CreateEnemies(List<Vector3> cellsPositions)
 		{
 			List<Vector3> spawnPositions = cellsPositions
-				.Where(x => Math.Abs(x.x - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon && Math.Abs(x.z - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon)
+				.Where(x => Math.Abs(x.x - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon &&
+				            Math.Abs(x.z - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon && (x.x + x.y != 0))
 				.OrderBy(x => Guid.NewGuid()).Take(_enemyDescriptor.EnemiesNumber).ToList();
 
 			

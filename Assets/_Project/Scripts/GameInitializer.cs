@@ -9,6 +9,7 @@ using _Project.Scripts.LabyrinthLogic;
 using _Project.Scripts.Resources;
 using UnityEngine;
 using Zenject;
+using NavMeshBuilder = UnityEditor.AI.NavMeshBuilder;
 
 namespace _Project.Scripts
 {
@@ -31,6 +32,7 @@ namespace _Project.Scripts
 			InitAnimalAreas();
 			InitLabyrinth();
 			SpawnEnemies();
+			BuildNavMesh();
 		}
 
 		private void InitResources()
@@ -61,6 +63,11 @@ namespace _Project.Scripts
 		{
 			List<Vector3> cellsPositions = FindObjectsOfType<Cell>().Select(cell => cell.transform.position).ToList();
 			_gameFactoryService.CreateEnemies(cellsPositions);
+		}
+
+		private void BuildNavMesh()
+		{
+			NavMeshBuilder.BuildNavMeshAsync();
 		}
 	}
 }
