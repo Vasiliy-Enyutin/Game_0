@@ -43,7 +43,9 @@ namespace _Project.Scripts.Factories
 			
 			foreach (Vector3 spawnPosition in spawnPositions)
 			{
-				_enemies.Add(_assetProviderService.CreateAsset<Enemy>(_enemyDescriptor.Enemy, spawnPosition).gameObject);
+				Enemy enemy = _assetProviderService.CreateAsset<Enemy>(_enemyDescriptor.Enemy, spawnPosition);
+				enemy.Init(_player, _enemyDescriptor.MoveSpeed, _enemyDescriptor.PursuitDistance);
+				_enemies.Add(enemy.gameObject);
 			}
 		}
 		

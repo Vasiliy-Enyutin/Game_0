@@ -8,5 +8,7 @@ namespace _Project.Scripts.Descriptors
     {
         public Enemy Enemy;
         public int EnemiesNumber;
+        public float MoveSpeed;
+        public float PursuitDistance;
     }
 }
