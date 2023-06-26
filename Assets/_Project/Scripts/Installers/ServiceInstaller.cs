@@ -15,7 +15,6 @@ namespace _Project.Scripts.Installers
 			Container.Bind<AssetProviderService>().AsSingle();
 			Container.Bind<PlayerInputService>().FromComponentInNewPrefab(_playerInputServicePrefab).AsSingle();
 			Container.Bind<GameFactoryService>().AsSingle();
-			Container.Bind<InventoryService>().AsSingle();
 		}
 	}
 }

@@ -7,7 +7,7 @@ namespace _Project.Scripts.EnemyLogic
     public class EnemyAnimator : MonoBehaviour
     {
         [SerializeField]
-        private Animator _animator;
+        private Animator _animator = null!;
         
         private NavMeshAgent _agent;
         
@@ -18,14 +18,7 @@ namespace _Project.Scripts.EnemyLogic
 
         private void Update()
         {
-            if (_agent.velocity != Vector3.zero)
-            {
-                _animator.Play("Run");
-            }
-            else
-            {
-                _animator.Play("Idle");
-            }
+            _animator.Play(_agent.velocity == Vector3.zero ? "Idle" : "Run");
         }
     }
 }

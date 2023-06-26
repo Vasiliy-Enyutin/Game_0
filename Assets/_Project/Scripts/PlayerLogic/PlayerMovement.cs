@@ -6,6 +6,8 @@ namespace _Project.Scripts.PlayerLogic
 {
     public class PlayerMovement : MonoBehaviour
     {
+        [SerializeField] private Transform _playerGfxTransform;
+        
         [Inject]
         private PlayerInputService _playerInputService = null!;
         [Inject]
@@ -22,13 +24,28 @@ namespace _Project.Scripts.PlayerLogic
 
         private void FixedUpdate()
         {
+            RotatePlayer();
+            Move();
+        }
+
+        private void RotatePlayer()
+        {
+            if (_moveDirection.magnitude > 0)
+            {
+                _playerGfxTransform.rotation = Quaternion.LookRotation(_moveDirection);
+            }
+        }
+
+        private void Move()
+        {
             _moveDirection = transform.right * _playerInputService.MoveDirection.x +
                              transform.forward * _playerInputService.MoveDirection.z;
-            
-            if (_moveDirection.magnitude > 1) 
+
+            if (_moveDirection.magnitude > 1)
             {
                 _moveDirection.Normalize();
             }
+
             _rigidbody.MovePosition(transform.position + _moveDirection * _playerDescriptor.MoveSpeed * Time.deltaTime);
         }
     }
