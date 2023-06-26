@@ -39,9 +39,10 @@ namespace _Project.Scripts.Factories
 			List<Vector3> spawnPositions = cellsPositions
 				.Where(x => Math.Abs(x.x - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon &&
 				            Math.Abs(x.z - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon && (x.x + x.y != 0))
-				.OrderBy(x => Guid.NewGuid()).Take(_enemyDescriptor.EnemiesNumber).ToList();
+				.OrderBy(_ => Guid.NewGuid()).Take(_enemyDescriptor.EnemiesNumber).ToList();
 
 			
+			spawnPositions.ForEach(x => Debug.Log(x));
 			foreach (Vector3 spawnPosition in spawnPositions)
 			{
 				Enemy enemy = _assetProviderService.CreateAsset<Enemy>(_enemyDescriptor.Enemy, spawnPosition);

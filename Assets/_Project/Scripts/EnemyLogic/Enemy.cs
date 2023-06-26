@@ -18,6 +18,7 @@ namespace _Project.Scripts.EnemyLogic
             
             _agent = GetComponent<NavMeshAgent>();
             _agent.speed = moveSpeed;
+            _agent.enabled = true;
         }
 
         private void Update()
