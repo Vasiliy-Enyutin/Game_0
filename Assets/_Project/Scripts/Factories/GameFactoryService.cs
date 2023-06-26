@@ -42,7 +42,6 @@ namespace _Project.Scripts.Factories
 				.OrderBy(_ => Guid.NewGuid()).Take(_enemyDescriptor.EnemiesNumber).ToList();
 
 			
-			spawnPositions.ForEach(x => Debug.Log(x));
 			foreach (Vector3 spawnPosition in spawnPositions)
 			{
 				Enemy enemy = _assetProviderService.CreateAsset<Enemy>(_enemyDescriptor.Enemy, spawnPosition);
