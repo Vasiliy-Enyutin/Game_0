@@ -4,8 +4,8 @@ using _Project.Scripts.Descriptors;
 using _Project.Scripts.Factories;
 using _Project.Scripts.LabyrinthLogic;
 using UnityEngine;
+using UnityEngine.AI;
 using Zenject;
-using NavMeshBuilder = UnityEditor.AI.NavMeshBuilder;
 
 namespace _Project.Scripts
 {
@@ -39,7 +39,7 @@ namespace _Project.Scripts
 
 		private void BuildNavMesh()
 		{
-			NavMeshBuilder.BuildNavMeshAsync();
+			FindObjectOfType<NavMeshSurface>().BuildNavMesh();
 		}
 	}
 }
