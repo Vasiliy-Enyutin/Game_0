@@ -10,5 +10,6 @@ namespace _Project.Scripts.LabyrinthLogic
 
         public GameObject WallLeft => _wallLeft;
         public GameObject WallBottom => _wallBottom;
+        public GameObject Floor => _floor;
     }
 }

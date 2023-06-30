@@ -1,12 +1,18 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.LabyrinthLogic
 {
     public class LabyrinthSpawner : MonoBehaviour
     {
+        [SerializeField]
+        private Material _finishMaterial;
+        
         [Inject]
         private AssetProviderService _assetProviderService = null!;
+
+        private const float FINISH_COLLIDER_RADIUS = 2;
         
         private Cell _cell;
         private Vector3 _cellSize;
@@ -39,8 +45,21 @@ namespace _Project.Scripts.LabyrinthLogic
                     c.transform.SetParent(transform);
                     c.WallLeft.SetActive(_labyrinth.cells[x, y].WallLeft);
                     c.WallBottom.SetActive(_labyrinth.cells[x, y].WallBottom);
+
+                    if (x == _labyrinth.finishPosition.x && y == _labyrinth.finishPosition.y)
+                    {
+                        AddColliderToFinish(c);
+                    }
                 }
             }
+        }
+
+        private void AddColliderToFinish(Cell cell)
+        {
+            SphereCollider sphereCollider = cell.AddComponent<SphereCollider>();
+            sphereCollider.radius = FINISH_COLLIDER_RADIUS;
+            sphereCollider.isTrigger = true;            
+            cell.Floor.GetComponent<MeshRenderer>().material = _finishMaterial;
         }
     }
 }
