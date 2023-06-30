@@ -26,12 +26,13 @@ namespace _Project.Scripts.Factories
 		// Из-за своеобразного спавна лабиринта пол ячеек может выходить за пределы лабиринта
 		private const int CELLS_COORDS_OUTSIDE_LABYRINTH = 45;
 
-		private GameObject _player;
-		private List<GameObject> _enemies = new();
-		
+		public GameObject Player { get; private set; }
+
+		public List<GameObject> Enemies { get; } = new();
+
 		public void CreatePlayer()
 		{
-			_player = _assetProviderService.CreateAsset<PlayerMovement>(_playerDescriptor.Prefab, _locationDescriptor.InitialPlayerPositionPoint).gameObject;
+			Player = _assetProviderService.CreateAsset<PlayerMovement>(_playerDescriptor.Prefab, _locationDescriptor.InitialPlayerPositionPoint).gameObject;
 		}
 
 		public void CreateEnemies(List<Vector3> cellsPositions)
@@ -45,15 +46,15 @@ namespace _Project.Scripts.Factories
 			foreach (Vector3 spawnPosition in spawnPositions)
 			{
 				Enemy enemy = _assetProviderService.CreateAsset<Enemy>(_enemyDescriptor.Enemy, spawnPosition);
-				enemy.Init(_player, _enemyDescriptor.MoveSpeed, _enemyDescriptor.PursuitDistance);
-				_enemies.Add(enemy.gameObject);
+				enemy.Init(Player, _enemyDescriptor.MoveSpeed, _enemyDescriptor.PursuitDistance);
+				Enemies.Add(enemy.gameObject);
 			}
 		}
 		
 		public void ClearAll()
 		{
-			Object.Destroy(_player.gameObject);
-			_enemies.ForEach(enemy => Object.Destroy(enemy));
+			Object.Destroy(Player.gameObject);
+			Enemies.ForEach(enemy => Object.Destroy(enemy));
 		}
 	}
 }

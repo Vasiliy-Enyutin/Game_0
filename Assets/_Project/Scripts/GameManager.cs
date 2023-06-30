@@ -1,17 +1,22 @@
-using System;
+using _Project.Scripts.Factories;
+using _Project.Scripts.PlayerLogic;
 using _Project.Scripts.UI;
 using UnityEngine;
+using UnityEngine.AI;
+using Zenject;
 
 namespace _Project.Scripts
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField]
+        [Inject]
         private UiManager _uiManager;
+        [Inject]
+        private GameFactoryService _gameFactoryService;
 
-        private void Awake()
+        private void Start()
         {
-            //TODO Убирать движение персонажей
+            DisableCharactersMovement();
             
             _uiManager.OnUserReadyToPlay += StartGame;
         }
@@ -24,7 +29,19 @@ namespace _Project.Scripts
         private void StartGame()
         {
             _uiManager.HideAll();
-            //TODO Запускать движение персонажей
+            EnableCharactersMovement();
+        }
+
+        private void EnableCharactersMovement()
+        {
+            _gameFactoryService.Player.GetComponent<PlayerMovement>().enabled = true;
+            _gameFactoryService.Enemies.ForEach(enemy => enemy.GetComponent<NavMeshAgent>().enabled = true);
+        }
+
+        private void DisableCharactersMovement()
+        {
+            _gameFactoryService.Player.GetComponent<PlayerMovement>().enabled = false;
+            _gameFactoryService.Enemies.ForEach(enemy => enemy.GetComponent<NavMeshAgent>().enabled = false);
         }
     }
 }

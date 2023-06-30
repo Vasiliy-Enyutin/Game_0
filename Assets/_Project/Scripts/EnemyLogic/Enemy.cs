@@ -23,6 +23,11 @@ namespace _Project.Scripts.EnemyLogic
 
         private void Update()
         {
+            if (_agent.enabled == false)
+            {
+                return;
+            }
+
             NavMeshPath path = new();
             if (_agent.CalculatePath(_player.transform.position, path))
             {
