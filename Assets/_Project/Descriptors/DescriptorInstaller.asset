@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerDescriptor: {fileID: 11400000, guid: 433d9d0fb750bb34ca9f3a506dc30d97, type: 2}
   _locationDescriptor: {fileID: 11400000, guid: 77204ea96d0234c4983495cf2a17359a, type: 2}
-  _resourceDescriptorCollection: {fileID: 11400000, guid: e12d260dff1decc44bc12ed12d24bc10, type: 2}
-  animalAreaDescriptorCollection: {fileID: 11400000, guid: ea7b0f67d11af024c86c3d5940ab7414, type: 2}
-  _itemDescriptorCollection: {fileID: 11400000, guid: cb5478a43f6d4ca41aa0701884987691, type: 2}
   _labyrinthDescriptor: {fileID: 11400000, guid: 6c3000ab2ee29f34e9cbd4cbd75b1f73, type: 2}
-  enemyDescriptor: {fileID: 11400000, guid: 56d6599e8d352b9468640ba45fcca366, type: 2}
+  _enemyDescriptor: {fileID: 11400000, guid: 56d6599e8d352b9468640ba45fcca366, type: 2}
+  _uiDescriptor: {fileID: 11400000, guid: 1825863016a2cc04d897ce326fa99a27, type: 2}
