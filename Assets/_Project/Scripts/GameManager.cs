@@ -19,11 +19,16 @@ namespace _Project.Scripts
         private void Start()
         {
             DisableCharactersMovement();
-            
+
             _uiManager.OnUserReadyToPlay += StartGame;
+            _uiManager.OnNextLevelKeyPressed += GoToNextLevel;
             _uiManager.OnRestartKeyPressed += RestartLevel;
+
+            Player player = _gameFactoryService.Player.GetComponent<Player>();
+            player.OnReachedFinish += ShowNextLevelPanel;
+            player.OnDestroy += ShowGameOverPanel;
             
-            _gameFactoryService.Player.GetComponent<Player>().OnDestroy += FinishLevel;
+            _uiManager.ShowMenu(Menu.Main);
         }
 
         private void OnDisable()
@@ -33,7 +38,7 @@ namespace _Project.Scripts
 
             if (_gameFactoryService.Player != null)
             {
-                _gameFactoryService.Player.GetComponent<Player>().OnDestroy -= FinishLevel;
+                _gameFactoryService.Player.GetComponent<Player>().OnDestroy -= ShowGameOverPanel;
             }
         }
 
@@ -55,10 +60,21 @@ namespace _Project.Scripts
             _gameFactoryService.Enemies.ForEach(enemy => enemy.GetComponent<NavMeshAgent>().enabled = false);
         }
 
-        private void FinishLevel()
+        private void ShowGameOverPanel()
         {
             DisableCharactersMovement();
             _uiManager.ShowMenu(Menu.GameOver);
+        }
+
+        private void ShowNextLevelPanel()
+        {
+            _uiManager.ShowMenu(Menu.Win);
+        }
+
+        private void GoToNextLevel()
+        {
+            //TODO Пока нет других уровней делаю рестарт текущего
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void RestartLevel()

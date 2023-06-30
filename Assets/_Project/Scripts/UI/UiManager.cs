@@ -14,23 +14,24 @@ namespace _Project.Scripts.UI
         private UiDescriptor _uiDescriptor = null!;
 
         public event Action OnUserReadyToPlay;
+        public event Action OnNextLevelKeyPressed;
         public event Action OnRestartKeyPressed;
 
         private MainMenuPanel _mainMenuPanel;
-        // private LevelWinPanel _levelWinPanel;
+        private LevelWinPanel _levelWinPanel;
         private GameOverPanel _gameOverPanel;
 
         private void Awake()
         {
             _mainMenuPanel = _assetProviderService.CreateAsset<MainMenuPanel>(_uiDescriptor.MainMenuPanelPrefab, transform);
-            // _levelWinPanel = _assetProviderService.CreateAsset<LevelWinPanel>(_uiDescriptor.LevelWinPanelPrefab, transform);
+            _levelWinPanel = _assetProviderService.CreateAsset<LevelWinPanel>(_uiDescriptor.LevelWinPanelPrefab, transform);
             _gameOverPanel = _assetProviderService.CreateAsset<GameOverPanel>(_uiDescriptor.GameOverPanelPrefab, transform);
 
             _mainMenuPanel.OnPlayerAnyKeyDown += InvokeUserReadyToPlay;
+            _levelWinPanel.OnContinueKeyDown += InvokeNextLevel;
             _gameOverPanel.OnRestartKeyDown += InvokeRestart;
 
             HideAll();
-            ShowMenu(Menu.Main);
         }
 
         private void OnDestroy()
@@ -47,10 +48,10 @@ namespace _Project.Scripts.UI
             {
                 _mainMenuPanel.Show();
             }
-            // else if (menu == Menu.Win)
-            // {
-            //     _levelWinPanel.Show();
-            // }
+            else if (menu == Menu.Win)
+            {
+                _levelWinPanel.Show();
+            }
             else if (menu == Menu.GameOver)
             {
                 _gameOverPanel.Show();
@@ -60,13 +61,18 @@ namespace _Project.Scripts.UI
         public void HideAll()
         {
             _mainMenuPanel.Hide();;
-            // _levelWinPanel.Hide();;
+            _levelWinPanel.Hide();;
             _gameOverPanel.Hide();;
         }
 
         private void InvokeUserReadyToPlay()
         {
             OnUserReadyToPlay?.Invoke();
+        }
+
+        private void InvokeNextLevel()
+        {
+            OnNextLevelKeyPressed?.Invoke();
         }
 
         private void InvokeRestart()

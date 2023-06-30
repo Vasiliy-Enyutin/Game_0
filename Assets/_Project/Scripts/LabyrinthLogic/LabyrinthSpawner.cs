@@ -56,6 +56,7 @@ namespace _Project.Scripts.LabyrinthLogic
 
         private void AddColliderToFinish(Cell cell)
         {
+            cell.AddComponent<Finish>();
             SphereCollider sphereCollider = cell.AddComponent<SphereCollider>();
             sphereCollider.radius = FINISH_COLLIDER_RADIUS;
             sphereCollider.isTrigger = true;            
