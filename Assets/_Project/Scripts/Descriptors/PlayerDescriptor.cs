@@ -6,7 +6,7 @@ namespace _Project.Scripts.Descriptors
 	[CreateAssetMenu(fileName = "PlayerDescriptor", menuName = "Descriptors/Player", order = 0)]
 	public class PlayerDescriptor : ScriptableObject
 	{
-		public PlayerMovement Prefab = null!;
+		public Player Prefab = null!;
 		public float MoveSpeed;
 		public float BaseDamageToResources;
 	}

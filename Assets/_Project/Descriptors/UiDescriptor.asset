@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: UiDescriptor
   m_EditorClassIdentifier: 
   MainMenuPanelPrefab: {fileID: 4740618019091820628, guid: fb97fc168390ed248a609d095b7f0ed7, type: 3}
+  GameOverPanelPrefab: {fileID: -602535100392413510, guid: e29bd562c8a0a364aaf432d50ddc8b4a, type: 3}

@@ -14,18 +14,20 @@ namespace _Project.Scripts.UI
         private UiDescriptor _uiDescriptor = null!;
 
         public event Action OnUserReadyToPlay;
+        public event Action OnRestartKeyPressed;
 
         private MainMenuPanel _mainMenuPanel;
         // private LevelWinPanel _levelWinPanel;
-        // private GameOverPanel _gameOverPanel;
+        private GameOverPanel _gameOverPanel;
 
         private void Awake()
         {
             _mainMenuPanel = _assetProviderService.CreateAsset<MainMenuPanel>(_uiDescriptor.MainMenuPanelPrefab, transform);
-            // _levelWinPanel = _assetProviderService.CreateAsset<MainMenuPanel>(_uiDescriptor.LevelWinPanelPrefab, transform);
-            // _gameOverPanel = _assetProviderService.CreateAsset<MainMenuPanel>(_uiDescriptor.GameOverPanelPrefab, transform);
+            // _levelWinPanel = _assetProviderService.CreateAsset<LevelWinPanel>(_uiDescriptor.LevelWinPanelPrefab, transform);
+            _gameOverPanel = _assetProviderService.CreateAsset<GameOverPanel>(_uiDescriptor.GameOverPanelPrefab, transform);
 
             _mainMenuPanel.OnPlayerAnyKeyDown += InvokeUserReadyToPlay;
+            _gameOverPanel.OnRestartKeyDown += InvokeRestart;
 
             HideAll();
             ShowMenu(Menu.Main);
@@ -34,6 +36,7 @@ namespace _Project.Scripts.UI
         private void OnDestroy()
         {
             _mainMenuPanel.OnPlayerAnyKeyDown -= InvokeUserReadyToPlay;
+            _gameOverPanel.OnRestartKeyDown -= InvokeRestart;
         }
 
         public void ShowMenu(Menu menu)
@@ -48,22 +51,27 @@ namespace _Project.Scripts.UI
             // {
             //     _levelWinPanel.Show();
             // }
-            // else if (menu == Menu.GameOver)
-            // {
-            //     _gameOverPanel.Show();
-            // }
+            else if (menu == Menu.GameOver)
+            {
+                _gameOverPanel.Show();
+            }
         }
 
         public void HideAll()
         {
             _mainMenuPanel.Hide();;
             // _levelWinPanel.Hide();;
-            // _gameOverPanel.Hide();;
+            _gameOverPanel.Hide();;
         }
 
         private void InvokeUserReadyToPlay()
         {
             OnUserReadyToPlay?.Invoke();
+        }
+
+        private void InvokeRestart()
+        {
+            OnRestartKeyPressed?.Invoke();
         }
     }
 }

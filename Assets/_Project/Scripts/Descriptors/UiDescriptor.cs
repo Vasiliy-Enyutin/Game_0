@@ -8,6 +8,6 @@ namespace _Project.Scripts.Descriptors
     {
         public MainMenuPanel MainMenuPanelPrefab;
         // public LevelWinPanel LevelWinPanelPrefab;
-        // public GameOverPanel GameOverPanelPrefab;
+        public GameOverPanel GameOverPanelPrefab;
     }
 }

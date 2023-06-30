@@ -9,12 +9,10 @@ namespace _Project.Scripts.UI.Panels
         
         private void Update()
         {
-            if (!Input.anyKeyDown) 
+            if (Input.anyKeyDown) 
             {
-                return;
+                OnPlayerAnyKeyDown?.Invoke();
             }
-            
-            OnPlayerAnyKeyDown?.Invoke();
         }
     }
 }

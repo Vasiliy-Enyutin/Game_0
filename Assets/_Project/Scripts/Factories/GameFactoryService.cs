@@ -32,7 +32,7 @@ namespace _Project.Scripts.Factories
 
 		public void CreatePlayer()
 		{
-			Player = _assetProviderService.CreateAsset<PlayerMovement>(_playerDescriptor.Prefab, _locationDescriptor.InitialPlayerPositionPoint).gameObject;
+			Player = _assetProviderService.CreateAsset<Player>(_playerDescriptor.Prefab, _locationDescriptor.InitialPlayerPositionPoint).gameObject;
 		}
 
 		public void CreateEnemies(List<Vector3> cellsPositions)

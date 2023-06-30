@@ -7,9 +7,9 @@ namespace _Project.Scripts.EnemyLogic
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out PlayerMovement playerMovement))
+            if (other.TryGetComponent(out Player player))
             {
-                Destroy(playerMovement.gameObject);
+                player.Die();
             }
         }
     }
