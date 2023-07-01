@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Factories;
 using _Project.Scripts.PlayerLogic;
 using _Project.Scripts.UI;
@@ -15,6 +16,11 @@ namespace _Project.Scripts
         private UiManager _uiManager;
         [Inject]
         private GameFactoryService _gameFactoryService;
+
+        private void Awake()
+        {
+            Cursor.visible = false;
+        }
 
         private void Start()
         {
