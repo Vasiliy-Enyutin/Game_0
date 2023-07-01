@@ -6,10 +6,12 @@ namespace _Project.Scripts.EnemyLogic
     [RequireComponent(typeof(NavMeshAgent))]
     public class Enemy : MonoBehaviour
     {
-        private GameObject? _player;
+        private GameObject _player;
         private float _pursuitDistance;
 
         private NavMeshAgent _agent;
+        
+        public bool IsPursuingPlayer { get; private set; }
         
         public void Init(GameObject player, float moveSpeed, float pursuitDistance)
         {
@@ -19,12 +21,14 @@ namespace _Project.Scripts.EnemyLogic
             _agent = GetComponent<NavMeshAgent>();
             _agent.speed = moveSpeed;
             _agent.enabled = true;
+            IsPursuingPlayer = false;
         }
 
         private void Update()
         {
-            if (_agent.enabled == false)
+            if (_agent.enabled == false || _player == null)
             {
+                IsPursuingPlayer = false;
                 return;
             }
 
@@ -42,7 +46,13 @@ namespace _Project.Scripts.EnemyLogic
 
                     if (distanceToPlayer < _pursuitDistance)
                     {
+
+                        IsPursuingPlayer = true;
                         _agent.SetPath(path);
+                    }
+                    else
+                    {
+                        IsPursuingPlayer = false;
                     }
                 }
             }

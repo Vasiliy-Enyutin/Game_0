@@ -25,36 +25,46 @@ namespace _Project.Scripts.Factories
 
 		// Из-за своеобразного спавна лабиринта пол ячеек может выходить за пределы лабиринта
 		private const int CELLS_COORDS_OUTSIDE_LABYRINTH = 45;
+		private const int START_POSITION = 0;
+		private const int START_POSITION2 = 5;
 
-		public GameObject Player { get; private set; }
+		public Player Player { get; private set; }
 
-		public List<GameObject> Enemies { get; } = new();
+		public List<Enemy> Enemies { get; } = new();
 
 		public void CreatePlayer()
 		{
-			Player = _assetProviderService.CreateAsset<Player>(_playerDescriptor.Prefab, _locationDescriptor.InitialPlayerPositionPoint).gameObject;
+			Player = _assetProviderService.CreateAsset<Player>(_playerDescriptor.Prefab, _locationDescriptor.InitialPlayerPositionPoint);
 		}
 
 		public void CreateEnemies(List<Vector3> cellsPositions)
 		{
 			List<Vector3> spawnPositions = cellsPositions
-				.Where(x => Math.Abs(x.x - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon &&
-				            Math.Abs(x.z - CELLS_COORDS_OUTSIDE_LABYRINTH) > Mathf.Epsilon && (x.x + x.y != 0))
+				.Where(cellPosition =>
+					!(Math.Abs(cellPosition.x - START_POSITION) < Mathf.Epsilon &&
+					  Math.Abs(cellPosition.z - START_POSITION) < Mathf.Epsilon) &&
+					!(Math.Abs(cellPosition.x - START_POSITION) < Mathf.Epsilon &&
+					  Math.Abs(cellPosition.z - START_POSITION2) < Mathf.Epsilon) &&
+					!(Math.Abs(cellPosition.x - START_POSITION2) < Mathf.Epsilon &&
+					  Math.Abs(cellPosition.z - START_POSITION) < Mathf.Epsilon) &&
+					!(Math.Abs(cellPosition.x - CELLS_COORDS_OUTSIDE_LABYRINTH) < Mathf.Epsilon ||
+					  Math.Abs(cellPosition.z - CELLS_COORDS_OUTSIDE_LABYRINTH) < Mathf.Epsilon)
+				)
 				.OrderBy(_ => Guid.NewGuid()).Take(_enemyDescriptor.EnemiesNumber).ToList();
 
 			
 			foreach (Vector3 spawnPosition in spawnPositions)
 			{
 				Enemy enemy = _assetProviderService.CreateAsset<Enemy>(_enemyDescriptor.Enemy, spawnPosition);
-				enemy.Init(Player, _enemyDescriptor.MoveSpeed, _enemyDescriptor.PursuitDistance);
-				Enemies.Add(enemy.gameObject);
+				enemy.Init(Player.gameObject, _enemyDescriptor.MoveSpeed, _enemyDescriptor.PursuitDistance);
+				Enemies.Add(enemy);
 			}
 		}
 		
 		public void ClearAll()
 		{
 			Object.Destroy(Player.gameObject);
-			Enemies.ForEach(enemy => Object.Destroy(enemy));
+			Enemies.ForEach(enemy => Object.Destroy(enemy.gameObject));
 		}
 	}
 }

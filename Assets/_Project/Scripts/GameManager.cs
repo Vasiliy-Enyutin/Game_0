@@ -24,7 +24,7 @@ namespace _Project.Scripts
             _uiManager.OnNextLevelKeyPressed += GoToNextLevel;
             _uiManager.OnRestartKeyPressed += RestartLevel;
 
-            Player player = _gameFactoryService.Player.GetComponent<Player>();
+            Player player = _gameFactoryService.Player;
             player.OnReachedFinish += ShowNextLevelPanel;
             player.OnDestroy += ShowGameOverPanel;
             
@@ -38,7 +38,7 @@ namespace _Project.Scripts
 
             if (_gameFactoryService.Player != null)
             {
-                _gameFactoryService.Player.GetComponent<Player>().OnDestroy -= ShowGameOverPanel;
+                _gameFactoryService.Player.OnDestroy -= ShowGameOverPanel;
             }
         }
 
