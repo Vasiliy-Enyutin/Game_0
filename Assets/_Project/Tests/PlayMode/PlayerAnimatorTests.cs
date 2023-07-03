@@ -14,23 +14,17 @@ namespace _Project.Tests.PlayMode
         [SetUp]
         public void Setup()
         {
-            // Создаем новый GameObject для Player
-            GameObject playerObject = new GameObject("Player");
-
-            // Добавляем компонент PlayerAnimator и получаем ссылку на него
-            _playerAnimator = playerObject.AddComponent<PlayerAnimator>();
+            // Создаём объект игрока, добавляем компонент PlayerAnimator и получаем ссылку на него
+            _playerAnimator = new GameObject().AddComponent<PlayerAnimator>();
 
             // Загружаем PlayerGFX из ресурсов
-            GameObject playerGFXPrefab = Resources.Load<GameObject>("PlayerGFX");
+            GameObject playerGfxPrefab = Resources.Load<GameObject>("PlayerGFX");
 
             // Создаем экземпляр PlayerGFX и делаем его дочерним объектом playerObject
-            GameObject playerGFXObject = Object.Instantiate(playerGFXPrefab, playerObject.transform);
+            GameObject playerGfxObject = Object.Instantiate(playerGfxPrefab, _playerAnimator.gameObject.transform);
 
             // Получаем компонент Animator из PlayerGFXObject
-            _animator = playerGFXObject.GetComponent<Animator>();
-
-            // Вызываем метод ConstructTest с передачей аниматора и вектора направления
-            _playerAnimator.ConstructTest(_animator, Vector3.zero);
+            _animator = playerGfxObject.GetComponent<Animator>();
         }
 
         [TearDown]

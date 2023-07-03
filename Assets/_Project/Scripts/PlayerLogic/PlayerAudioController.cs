@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.PlayerLogic
 {
@@ -7,7 +9,7 @@ namespace _Project.Scripts.PlayerLogic
     public class PlayerAudioController : MonoBehaviour
     {
         [SerializeField]
-        private AudioClip[] _footstepsAudioClips;
+        public AudioClip[] _footstepsAudioClips;
         
         [Inject]
         private PlayerInputService _playerInputService = null!;
@@ -22,20 +24,27 @@ namespace _Project.Scripts.PlayerLogic
 
         private void Update()
         {
-            if (_playerInputService.MoveDirection != Vector3.zero)
-            {
-                PlayFootstepSound();
-            }
+            UpdateFootstepSound(_playerInputService.MoveDirection);
         }
 
-        private void PlayFootstepSound()
+        private void UpdateFootstepSound(Vector3 moveDirection)
         {
-            if (_footstepsAudioClips.Length > 0 && !_audioSource.isPlaying)
+            if (moveDirection == Vector3.zero || _footstepsAudioClips.Length <= 0 || _audioSource.isPlaying)
             {
-                int randomIndex = Random.Range(0, _footstepsAudioClips.Length);
-                AudioClip audioClip = _footstepsAudioClips[randomIndex];
-                _audioSource.PlayOneShot(audioClip);
+                return;
             }
+            
+            int randomIndex = Random.Range(0, _footstepsAudioClips.Length);
+            AudioClip audioClip = _footstepsAudioClips[randomIndex];
+            _audioSource.PlayOneShot(audioClip);
+        }
+
+        public void ConstructTest(Vector3 moveDirection, AudioSource audioSource = null, AudioClip[] audioClip = null)
+        {
+            _audioSource = audioSource;
+            _footstepsAudioClips = audioClip;
+            
+            UpdateFootstepSound(moveDirection);
         }
     }
 }
