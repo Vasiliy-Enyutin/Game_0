@@ -32,6 +32,11 @@ namespace _Project.Scripts.EnemyLogic
                 return;
             }
 
+            UpdatePath();
+        }
+
+        private void UpdatePath()
+        {
             NavMeshPath path = new();
             if (_agent.CalculatePath(_player.transform.position, path))
             {
@@ -46,7 +51,6 @@ namespace _Project.Scripts.EnemyLogic
 
                     if (distanceToPlayer < _pursuitDistance)
                     {
-
                         IsPursuingPlayer = true;
                         _agent.SetPath(path);
                     }

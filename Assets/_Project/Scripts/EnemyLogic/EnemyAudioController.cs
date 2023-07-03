@@ -14,7 +14,7 @@ namespace _Project.Scripts.EnemyLogic
         private AudioSource _audioSource;
         private Enemy _enemy;
         private bool _isPursuitSoundPlaying = false;
-
+        
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
@@ -24,11 +24,16 @@ namespace _Project.Scripts.EnemyLogic
 
         private void Update()
         {
-            if (_enemy.IsPursuingPlayer && !_isPursuitSoundPlaying)
+            UpdateSound(_enemy.IsPursuingPlayer, _isPursuitSoundPlaying);
+        }
+
+        private void UpdateSound(bool isPursuingPlayer, bool isPursuitSoundPlaying)
+        {
+            if (isPursuingPlayer && !isPursuitSoundPlaying)
             {
                 StartPursuitSound();
             }
-            else if (!_enemy.IsPursuingPlayer && _isPursuitSoundPlaying)
+            else if (!isPursuingPlayer && isPursuitSoundPlaying)
             {
                 PlayIdleSound();
             }
@@ -50,15 +55,19 @@ namespace _Project.Scripts.EnemyLogic
             while (_isPursuitSoundPlaying)
             {
                 int randomIndex = Random.Range(0, _attackAudioClips.Length);
-                AudioClip audioClip = _attackAudioClips[randomIndex];
-                _audioSource.PlayOneShot(audioClip);
+                CurrentAttackSoundTest = _attackAudioClips[randomIndex];
+                _audioSource.PlayOneShot(CurrentAttackSoundTest);
 
-                yield return new WaitForSeconds(audioClip.length);
+                yield return new WaitForSeconds(CurrentAttackSoundTest.length);
             }
         }
 
         private void PlayIdleSound()
         {
+            if (_idleAudioClip == null)
+            {
+                return;
+            }
             if (_audioSource.isPlaying && _audioSource.clip == _idleAudioClip)
             {
                 return;
@@ -69,5 +78,17 @@ namespace _Project.Scripts.EnemyLogic
             _audioSource.loop = true;
             _audioSource.Play();
         }
+
+        public void ConstructTest(bool isPursuingPlayer, bool isPursuitSoundPlaying, AudioSource audioSource = null,
+            AudioClip idleAudioClip = null, AudioClip[] attackAudioClips = null)
+        {
+            _audioSource = audioSource;
+            _idleAudioClip = idleAudioClip;
+            _attackAudioClips = attackAudioClips;
+
+            UpdateSound(isPursuingPlayer, isPursuitSoundPlaying);
+        }
+        
+        public AudioClip CurrentAttackSoundTest { get; private set; }
     }
 }
