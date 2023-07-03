@@ -9,7 +9,6 @@ namespace _Project.Tests.PlayMode
     public class PlayerMovementTests
     {
         private const float MOVE_SPEED = 5f;
-        private const float DELTA_TIME = 0.0167f;
         
         private PlayerMovement _playerMovement;
         private Transform _playerGfxTransform;
@@ -27,6 +26,16 @@ namespace _Project.Tests.PlayMode
             // Создаем экземпляр PlayerGFX и делаем его дочерним объектом playerObject
             _playerGfxTransform = Object.Instantiate(playerGfxPrefab, _playerMovement.gameObject.transform).transform;
         }
+        
+        [TearDown]
+        public void TearDown()
+        {
+            // Уничтожаем объект игрока после каждого теста
+            if (_playerMovement != null)
+            {
+                Object.DestroyImmediate(_playerMovement.gameObject);
+            }
+        }
 
         [Test]
         public void Move_ChangesMoveDirectionAccordingToPlayerInput()
@@ -42,7 +51,7 @@ namespace _Project.Tests.PlayMode
             _playerMovement.ConstructTest(_playerGfxTransform, moveDirection, MOVE_SPEED, _rigidbody);
 
             // Assert
-            Assert.AreEqual(new Vector3(0.5f, 0, 0.5f), _playerMovement.GetMoveDirectionTest());
+            Assert.AreEqual(moveDirection, _playerMovement.GetMoveDirectionTest());
         }
 
         [Test]
@@ -97,7 +106,7 @@ namespace _Project.Tests.PlayMode
             _playerMovement.ConstructTest(_playerGfxTransform, moveDirection, MOVE_SPEED, _rigidbody);
         
             // Assert
-            Quaternion expectedRotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
+            Quaternion expectedRotation = Quaternion.LookRotation(moveDirection);
             Assert.AreEqual(expectedRotation, _playerGfxTransform.rotation);
         }
         
