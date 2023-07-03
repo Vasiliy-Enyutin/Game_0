@@ -20,6 +20,7 @@ namespace _Project.Scripts
         private void Awake()
         {
             Cursor.visible = false;
+            Application.targetFrameRate = 60;
         }
 
         private void Start()

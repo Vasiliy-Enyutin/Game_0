@@ -1,9 +1,13 @@
+using System.Collections;
 using _Project.Scripts.PlayerLogic;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
-namespace _Project.Tests.EditMode
+namespace _Project.Tests.PlayMode
 {
+    /*Все эти проверки требуют наличия реальной игровой среды, чтобы объект
+    Player действительно уничтожился и события сработали. Поэтому данный тест должен выполняться в PlayMode*/
     public class PlayerTests
     {
         private Player _player;
@@ -23,11 +27,14 @@ namespace _Project.Tests.EditMode
         public void TearDown()
         {
             // Уничтожаем объект Player после каждого теста
-            Object.DestroyImmediate(_player.gameObject);
+            if (_player != null)
+            {
+                Object.Destroy(_player.gameObject);
+            }
         }
 
-        [Test]
-        public void Die_InvokeOnDestroyEvent_DestroyGameObject()
+        [UnityTest]
+        public IEnumerator Die_InvokeOnDestroyEvent_DestroyGameObject()
         {
             // Подписываемся на событие OnDestroy
             _player.OnDestroy += () => _onDestroyCalled = true;
@@ -35,9 +42,12 @@ namespace _Project.Tests.EditMode
             // Act
             _player.Die();
 
+            // Ждем один кадр, чтобы позволить Unity обработать события и уничтожить объект.
+            yield return null;
+
             // Assert
             Assert.IsTrue(_onDestroyCalled);
-            Assert.IsNull(_player.gameObject);
+            Assert.IsTrue(_player == null || _player.gameObject == null);
         }
 
         [Test]

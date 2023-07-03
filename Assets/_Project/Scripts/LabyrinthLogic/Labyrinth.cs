@@ -4,7 +4,7 @@ namespace _Project.Scripts.LabyrinthLogic
 {
     public class Labyrinth
     {
-        public LabyrinthGeneratorCell[,] cells;
-        public Vector2Int finishPosition;
+        public LabyrinthGeneratorCell[,] Cells;
+        public Vector2Int FinishPosition;
     }
 }

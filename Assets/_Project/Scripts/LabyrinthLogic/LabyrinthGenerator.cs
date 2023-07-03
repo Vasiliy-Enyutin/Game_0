@@ -37,8 +37,8 @@ namespace _Project.Scripts.LabyrinthLogic
 
             Labyrinth maze = new()
             {
-                cells = cells,
-                finishPosition = PlaceMazeExit(cells)
+                Cells = cells,
+                FinishPosition = PlaceMazeExit(cells)
             };
 
             return maze;

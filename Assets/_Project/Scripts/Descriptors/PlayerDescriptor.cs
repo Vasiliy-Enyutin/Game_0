@@ -8,6 +8,5 @@ namespace _Project.Scripts.Descriptors
 	{
 		public Player Prefab = null!;
 		public float MoveSpeed;
-		public float BaseDamageToResources;
 	}
 }

@@ -14,4 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5049951985513824092, guid: bd4173993958f14479601119aa1e708e, type: 3}
   MoveSpeed: 5
-  BaseDamageToResources: 20

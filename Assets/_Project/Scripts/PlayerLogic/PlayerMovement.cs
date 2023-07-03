@@ -6,7 +6,8 @@ namespace _Project.Scripts.PlayerLogic
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private Transform _playerGfxTransform;
+        [SerializeField] 
+        private Transform _playerGfxTransform;
         
         [Inject]
         private PlayerInputService _playerInputService = null!;

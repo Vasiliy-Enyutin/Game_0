@@ -36,17 +36,17 @@ namespace _Project.Scripts.LabyrinthLogic
             LabyrinthGenerator generator = new();
             _labyrinth = generator.GenerateMaze(_labyrinthWidth, _labyrinthHeight);
 
-            for (int x = 0; x < _labyrinth.cells.GetLength(0); x++)
+            for (int x = 0; x < _labyrinth.Cells.GetLength(0); x++)
             {
-                for (int y = 0; y < _labyrinth.cells.GetLength(1); y++)
+                for (int y = 0; y < _labyrinth.Cells.GetLength(1); y++)
                 {
                     Cell c = _assetProviderService.CreateAsset<Cell>(_cell, new Vector3(x * _cellSize.x, y * _cellSize.y, y * _cellSize.z));
 
                     c.transform.SetParent(transform);
-                    c.WallLeft.SetActive(_labyrinth.cells[x, y].WallLeft);
-                    c.WallBottom.SetActive(_labyrinth.cells[x, y].WallBottom);
+                    c.WallLeft.SetActive(_labyrinth.Cells[x, y].WallLeft);
+                    c.WallBottom.SetActive(_labyrinth.Cells[x, y].WallBottom);
 
-                    if (x == _labyrinth.finishPosition.x && y == _labyrinth.finishPosition.y)
+                    if (x == _labyrinth.FinishPosition.x && y == _labyrinth.FinishPosition.y)
                     {
                         AddColliderToFinish(c);
                     }
