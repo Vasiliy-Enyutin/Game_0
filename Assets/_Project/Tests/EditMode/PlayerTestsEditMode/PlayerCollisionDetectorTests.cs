@@ -3,7 +3,7 @@ using _Project.Scripts.PlayerLogic;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace _Project.Tests.EditMode
+namespace _Project.Tests.EditMode.PlayerTestsEditMode
 {
     public class PlayerCollisionDetectorTests
     {

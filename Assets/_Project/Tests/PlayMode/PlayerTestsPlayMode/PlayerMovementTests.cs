@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace _Project.Tests.PlayMode
+namespace _Project.Tests.PlayMode.PlayerTestsPlayMode
 {
     public class PlayerMovementTests
     {

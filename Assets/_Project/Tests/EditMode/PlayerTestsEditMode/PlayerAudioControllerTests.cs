@@ -3,7 +3,7 @@ using NUnit.Framework;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace _Project.Tests.EditMode
+namespace _Project.Tests.EditMode.PlayerTestsEditMode
 {
     public class PlayerAudioControllerTests
     {

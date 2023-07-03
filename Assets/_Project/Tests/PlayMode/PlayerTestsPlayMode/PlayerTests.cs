@@ -4,10 +4,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace _Project.Tests.PlayMode
+namespace _Project.Tests.PlayMode.PlayerTestsPlayMode
 {
-    /*Все эти проверки требуют наличия реальной игровой среды, чтобы объект
-    Player действительно уничтожился и события сработали. Поэтому данный тест должен выполняться в PlayMode*/
     public class PlayerTests
     {
         private Player _player;
