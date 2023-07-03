@@ -9,16 +9,29 @@ namespace _Project.Scripts.EnemyLogic
         [SerializeField]
         private Animator _animator = null!;
         
-        private NavMeshAgent _agent;
-        
-        private void Awake()
-        {
-            _agent = GetComponent<NavMeshAgent>();
-        }
+        [SerializeField]
+        private NavMeshAgent _agent = null!;
 
         private void Update()
         {
-            _animator.Play(_agent.velocity == Vector3.zero ? "Idle" : "Run");
+            if (_agent == null)
+            {
+                return;
+            }
+            
+            UpdateAnimation(_agent.velocity);
+        }
+
+        private void UpdateAnimation(Vector3 agentVelocity)
+        {
+            _animator.Play(agentVelocity == Vector3.zero ? "Idle" : "Run");
+        }
+        
+        public void ConstructTest(Animator animator, Vector3 agentVelocity)
+        {
+            _animator = animator;
+
+            UpdateAnimation(agentVelocity);
         }
     }
 }

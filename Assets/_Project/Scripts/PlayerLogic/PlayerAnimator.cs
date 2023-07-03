@@ -18,6 +18,7 @@ namespace _Project.Scripts.PlayerLogic
             {
                 return;
             }
+            
             UpdateAnimation(_playerInputService.MoveDirection);
         }
 

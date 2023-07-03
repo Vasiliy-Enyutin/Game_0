@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 787421713180251012}
+  _agent: {fileID: 1220043327482961421}
 --- !u!114 &437760234468287384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3595625012628118935, guid: 156ea8d7801e10143a361335f8615ae7, type: 3}
       propertyPath: m_Name
-      value: monster_scavenger_Skin_Gray
+      value: EnemyGFX
       objectReference: {fileID: 0}
     - target: {fileID: 4228292131850356525, guid: 156ea8d7801e10143a361335f8615ae7, type: 3}
       propertyPath: m_RootOrder
