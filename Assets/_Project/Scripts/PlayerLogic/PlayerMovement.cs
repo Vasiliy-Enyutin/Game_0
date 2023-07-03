@@ -25,8 +25,13 @@ namespace _Project.Scripts.PlayerLogic
 
         private void FixedUpdate()
         {
+            if (_playerInputService == null || _playerDescriptor == null)
+            {
+                return;
+            }
+
+            Move(_playerInputService.MoveDirection, _playerDescriptor.MoveSpeed);
             RotatePlayer();
-            Move();
         }
 
         private void RotatePlayer()
@@ -37,17 +42,31 @@ namespace _Project.Scripts.PlayerLogic
             }
         }
 
-        private void Move()
+        private void Move(Vector3 moveDirection, float moveSpeed)
         {
-            _moveDirection = transform.right * _playerInputService.MoveDirection.x +
-                             transform.forward * _playerInputService.MoveDirection.z;
+            _moveDirection = transform.right * moveDirection.x +
+                             transform.forward * moveDirection.z;
 
             if (_moveDirection.magnitude > 1)
             {
                 _moveDirection.Normalize();
             }
 
-            _rigidbody.MovePosition(transform.position + _moveDirection * _playerDescriptor.MoveSpeed * Time.deltaTime);
+            _rigidbody.MovePosition(transform.position + _moveDirection * moveSpeed * Time.fixedDeltaTime);
+        }
+
+        public void ConstructTest(Transform playerGfxTransform, Vector3 moveDirection, float moveSpeed, Rigidbody rigidbody)
+        {
+            _playerGfxTransform = playerGfxTransform;
+            _rigidbody = rigidbody;
+            
+            Move(moveDirection, moveSpeed);
+            RotatePlayer();
+        }
+
+        public Vector3 GetMoveDirectionTest()
+        {
+            return _moveDirection;
         }
     }
 }
