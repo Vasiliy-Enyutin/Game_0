@@ -18,5 +18,11 @@ namespace _Project.Scripts.PlayerLogic
                 _player.CollisionWithFinish();
             }
         }
+        
+        public void ConstructTest(Collider collider, Player player)
+        {
+            _player = player;
+            OnTriggerEnter(collider);
+        }
     }
 }
