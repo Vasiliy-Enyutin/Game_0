@@ -7,7 +7,7 @@ namespace _Project.Tests.EditMode.PlayerTestsEditMode
 {
     public class PlayerCollisionDetectorTests
     {
-        private Collider _finishCollider;
+        private SphereCollider _finishCollider;
         private Player _player;
         private PlayerCollisionDetector _collisionDetector;
 
@@ -23,7 +23,7 @@ namespace _Project.Tests.EditMode.PlayerTestsEditMode
         [TearDown]
         public void TearDown()
         {
-            // Уничтожаем Player после каждого теста
+            // Уничтожаем _player после каждого теста
             if (_player != null)
             {
                 Object.DestroyImmediate(_player);
