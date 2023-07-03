@@ -33,6 +33,10 @@ namespace _Project.Tests.PlayMode
         {
             // Arrange
             Vector3 moveDirection  = new(0.5f, 0, 0.5f);
+            if (moveDirection.magnitude > 1)
+            {
+                moveDirection.Normalize();
+            }
 
             // Act
             _playerMovement.ConstructTest(_playerGfxTransform, moveDirection, MOVE_SPEED, _rigidbody);
@@ -46,7 +50,11 @@ namespace _Project.Tests.PlayMode
         {
             // Arrange
             Vector3 moveDirection  = new(1f, 0f, 1f);
-        
+            if (moveDirection.magnitude > 1)
+            {
+                moveDirection.Normalize();
+            }
+
             // Act
             _playerMovement.ConstructTest(_playerGfxTransform, moveDirection, MOVE_SPEED, _rigidbody);
         
@@ -59,6 +67,10 @@ namespace _Project.Tests.PlayMode
         {
             // Arrange
             Vector3 moveDirection = new(1f, 0f, 1f);
+            if (moveDirection.magnitude > 1)
+            {
+                moveDirection.Normalize();
+            }
             Vector3 startPlayerPosition = _playerMovement.transform.position;
 
             // Act
@@ -70,47 +82,41 @@ namespace _Project.Tests.PlayMode
             Assert.AreEqual(expectedPosition.x, _playerMovement.transform.position.x);
             Assert.AreEqual(expectedPosition.z, _playerMovement.transform.position.z);
         }
+
+        [Test]
+        public void RotatePlayer_MoveDirectionNotZero_RotatesPlayerGfxTransform()
+        {
+            // Arrange
+            Vector3 moveDirection = new(1f, 0f, 1f);
+            if (moveDirection.magnitude > 1)
+            {
+                moveDirection.Normalize();
+            }
+
+            // Act
+            _playerMovement.ConstructTest(_playerGfxTransform, moveDirection, MOVE_SPEED, _rigidbody);
         
-        // [Test]
-        // public void Move_MovesPlayerAccordingToMoveDirection()
-        // {
-        //     // Arrange
-        //     Vector3 moveDirection  = new(1f, 0f, 1f);
-        //
-        //     // Act
-        //     _playerMovement.ConstructTest(_playerGfxTransform, moveDirection, MOVE_SPEED, _rigidbody);
-        //
-        //     // Assert
-        //     Vector3 expectedPosition = _playerMovement.transform.position + moveDirection.normalized * MOVE_SPEED * DELTA_TIME;
-        //     Assert.AreEqual(expectedPosition, _playerMovement.transform.position);
-        // }
+            // Assert
+            Quaternion expectedRotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
+            Assert.AreEqual(expectedRotation, _playerGfxTransform.rotation);
+        }
         
-        // [Test]
-        // public void RotatePlayer_MoveDirectionNotZero_RotatesPlayerGfxTransform()
-        // {
-        //     // Arrange
-        //     _playerMovement.SetMoveDirection(new Vector3(1, 0, 1));
-        //
-        //     // Act
-        //     _playerMovement.RotatePlayer();
-        //
-        //     // Assert
-        //     Quaternion expectedRotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
-        //     Assert.AreEqual(expectedRotation, _playerMovement.GetPlayerGfxTransformRotation());
-        // }
-        //
-        // [Test]
-        // public void RotatePlayer_MoveDirectionZero_DoesNotRotatePlayerGfxTransform()
-        // {
-        //     // Arrange
-        //     _playerMovement.SetMoveDirection(Vector3.zero);
-        //
-        //     // Act
-        //     _playerMovement.RotatePlayer();
-        //
-        //     // Assert
-        //     Quaternion expectedRotation = Quaternion.identity;
-        //     Assert.AreEqual(expectedRotation, _playerMovement.GetPlayerGfxTransformRotation());
-        // }
+        [Test]
+        public void RotatePlayer_MoveDirectionZero_DoesNotRotatePlayerGfxTransform()
+        {
+            // Arrange
+            Vector3 moveDirection = Vector3.zero;
+            if (moveDirection.magnitude > 1)
+            {
+                moveDirection.Normalize();
+            }
+        
+            // Act
+            _playerMovement.ConstructTest(_playerGfxTransform, moveDirection, MOVE_SPEED, _rigidbody);
+        
+            // Assert
+            Quaternion expectedRotation = Quaternion.identity;
+            Assert.AreEqual(expectedRotation, _playerGfxTransform.rotation);
+        }
     }
 }
